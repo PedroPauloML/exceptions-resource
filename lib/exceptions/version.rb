@@ -1,3 +1,3 @@
 module Exceptions
-  VERSION = "0.0.2"
+  VERSION = "0.0.2_p01"
 end
