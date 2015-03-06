@@ -22,7 +22,7 @@ module Exceptions
 
 		# return the error status
 		def status
-			:unauthorized
+			401
 		end
 
 	end

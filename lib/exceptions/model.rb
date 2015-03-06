@@ -55,7 +55,7 @@ class Exceptions::Model < Exceptions::Base
 	end
 
 	def status
-		:unprocessable_entity
+		422
 	end
 
 	def is_nested?

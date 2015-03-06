@@ -24,7 +24,7 @@ module Exceptions
 
 		# return the error status
 		def status
-			:not_acceptable
+			406
 		end
 
 	end
