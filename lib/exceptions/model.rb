@@ -1,5 +1,5 @@
 module Exceptions
-	class Model < Base
+	class Model < Exceptions::Base
 		# for model errors this method build a hash with all necessary information
 		# @return [String] json string
 		def error

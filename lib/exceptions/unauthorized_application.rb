@@ -1,6 +1,6 @@
 # represents the simple errors
 module Exceptions
-	class UnauthorizedApplication < Base
+	class UnauthorizedApplication < Exceptions::Base
 		attr_accessor :status
 
 	

@@ -1,6 +1,6 @@
 # represents the simple errors
 module Exceptions
-	class Simple < Base
+	class Simple < Exceptions::Base
 		attr_accessor :status
 
 	

@@ -1,5 +1,5 @@
 module Exceptions
-	class Resource < Base
+	class Resource < Exceptions::Base
 		# for standard errors this method build a hash
 		# @return [String] json string
 		def error
