@@ -9,7 +9,7 @@ module Exceptions
 		def error
 			{ 
 				error: { 
-					message: self.object[:message],
+					message: self.object[:message]
 				} 
 			}
 		end
