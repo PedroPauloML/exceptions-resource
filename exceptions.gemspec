@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'exceptions/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "exceptions"
+  spec.name          = "exceptions-resource"
   spec.version       = Exceptions::VERSION
   spec.authors       = ["Douglas Rossignolli"]
   spec.email         = ["douglas.rossignolli@gmail.com"]
