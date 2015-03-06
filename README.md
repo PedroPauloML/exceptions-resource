@@ -8,7 +8,7 @@ needs `ActiveModel` as dependency if you aren't working with rails.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'exceptions', github: 'xdougx/exceptions'
+gem 'exceptions-resource', github: 'xdougx/exceptions-resource'
 ```
 
 And then execute:
@@ -17,7 +17,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install exceptions
+    $ gem install exceptions-resource
 
 ## Usage
 
