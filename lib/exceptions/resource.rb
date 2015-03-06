@@ -7,7 +7,7 @@ class Exceptions::Resource < Exceptions::Base
 				model: self.object["model"],
 				attribute: self.object["attribute"],
 				field: self.object["field"],
-				message: self.object["message"]
+				message: self.object["message"],
 				full_message: "#{self.object["attribute"]} #{self.object["message"]}"
 			} 
 		}
