@@ -1,5 +1,6 @@
 module Exceptions
 end
+
 require 'exceptions/base'
 require 'exceptions/model'
 require 'exceptions/resource'
