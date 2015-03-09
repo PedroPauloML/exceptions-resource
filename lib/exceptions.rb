@@ -33,6 +33,7 @@ module Exceptions
   end
 
 end
+
 require 'exceptions/model'
 require 'exceptions/resource'
 require 'exceptions/simple'
