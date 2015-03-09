@@ -1,6 +1,3 @@
-exceptions = File.expand_path('../exceptions', __FILE__)
-$LOAD_PATH.unshift(exceptions)
-
 module Exceptions
   class Base < StandardError
     attr_accessor :object, :type
@@ -32,9 +29,178 @@ module Exceptions
     end   
   end
 
+  class Model < Base
+    # for model errors this method build a hash with all necessary information
+    # @return [String] json string
+    def error
+      self.is_nested? ? self.build_nested : self.build_normal
+    end
+
+    def build_nested
+      { 
+        error: { 
+          model: self.nested_model.camelcase, 
+          field: "#{self.nested_model}[#{self.nested_attr}]",
+          attribute: self.nested_attr, 
+          message: self.message,
+          full_message: "#{self.nested_attr_human} #{self.message}"
+        } 
+      }
+    end
+
+    def build_normal
+      { 
+        error: { 
+          model: self.model.camelcase, 
+          field: "#{self.model}[#{self.attribute}]",
+          attribute: self.attribute, 
+          message: self.message,
+          full_message: "#{self.attribute_human} #{self.message}"
+        } 
+      }
+    end
+
+    # return what model is
+    # @return [String]
+    def model
+      self.object.class.name.demodulize.tableize.singularize.downcase
+    end
+
+    def attribute
+      self.object.errors.first[0]
+    end
+
+    def model_human
+      self.object.class.model_name.human.demodulize.tableize.singularize.downcase
+    end
+
+    def attribute_human
+      self.object.class.human_attribute_name(self.object.errors.first[0])
+    end
+
+    # return the error message
+    # @return [String]
+    def message 
+      "#{self.object.errors.first[1]}"
+    end
+
+    def status
+      422
+    end
+
+    def is_nested?
+      attribute = self.object.errors.first[0]
+
+      if self.object.errors.first[0].to_s.split(".").size > 1
+        self.object.respond_to?(attribute) ? false : true
+      else
+        false
+      end
+    end
+
+    def nested_model
+      self.object.errors.first[0].to_s.split(".").first.singularize.downcase
+    end
+
+    def nested_model_human
+      self.nested_model.capitalize.constantize.model_name.human
+    end
+
+    def nested_attr
+      self.object.errors.first[0].to_s.split(".").last
+    end
+
+    def nested_attr_human
+      self.nested_model.capitalize.constantize.human_attribute_name(self.nested_attr)
+    end
+  end
+
+  class Resource < Base
+    # for standard errors this method build a hash
+    # @return [String] json string
+    def error
+      {
+        error: { 
+          model: self.object["model"],
+          attribute: self.object["attribute"],
+          field: self.object["field"],
+          message: self.object["message"],
+          full_message: "#{self.object["attribute"]} #{self.object["message"]}"
+        } 
+      }
+    end
+
+    # return the error message
+    # @return [String]
+    def message
+      self.error[:message]
+    end
+
+    # return the error status
+    def status
+      406
+    end
+  end
+
+  class Simple < Base
+    attr_accessor :status
+
+
+    # for standard errors this method build a hash
+    # @return [String] json string
+    def error
+      { 
+        error: { 
+          message: self.object[:message],
+          full_message: "#{self.object[:field]} #{self.object[:message]} ",
+          field: self.object[:field]
+        } 
+      }
+    end
+
+    # return the error message
+    # @return [String]
+    def message
+      self.object[:message]
+    end
+
+    # return the error status
+    def status
+      406
+    end
+  end
+
+  # represents the simple errors
+  class UnauthorizedApplication < Base
+    attr_accessor :status
+
+
+    # for standard errors this method build a hash
+    # @return [String] json string
+    def error
+      { 
+        error: { 
+          message: self.object[:message]
+        } 
+      }
+    end
+
+    # return the error message
+    # @return [String]
+    def message
+      self.object[:message]
+    end
+
+    # return the error status
+    def status
+      401
+    end
+
+  end
+
 end
 
-require 'exceptions/model'
-require 'exceptions/resource'
-require 'exceptions/simple'
-require 'exceptions/unauthorized_application'
+# require 'exceptions/model'
+# require 'exceptions/resource'
+# require 'exceptions/simple'
+# require 'exceptions/unauthorized_application'
