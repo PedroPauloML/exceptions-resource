@@ -1,3 +1,5 @@
+require 'base'
+
 # represents the simple errors
 module Exceptions
 	class UnauthorizedApplication < Exceptions::Base

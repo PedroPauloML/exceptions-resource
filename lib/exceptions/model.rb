@@ -1,3 +1,5 @@
+require 'base'
+
 module Exceptions
 	class Model < Exceptions::Base
 		# for model errors this method build a hash with all necessary information
