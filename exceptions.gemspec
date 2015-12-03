@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["douglas.rossignolli@gmail.com"]
   spec.summary       = %q{This small lib have many exceptions to work with rested exceptions and ActiveModel errors}
   spec.description   = %q{This small lib will play with many kinds of exceptions and return then as json with all needed informations to build awesome errors responses}
-  spec.homepage      = "https://github.com/xdougx/exceptions"
+  spec.homepage      = "https://github.com/xdougx/exceptions-resource"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
