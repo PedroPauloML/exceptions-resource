@@ -40,8 +40,10 @@ module Exceptions
       { 
         error: { 
           model: self.nested_model.camelcase, 
+          model_human: self.nested_model_human,
           field: "#{self.nested_model}[#{self.nested_attr}]",
           attribute: self.nested_attr, 
+          attribute_human: self.nested_attr_human,
           message: self.message,
           full_message: "#{self.nested_attr_human} #{self.message}"
         } 
@@ -51,9 +53,11 @@ module Exceptions
     def build_normal
       { 
         error: { 
-          model: self.model.camelcase, 
+          model: self.model.camelcase,
+          model_human: self.model_human,
           field: "#{self.model}[#{self.attribute}]",
           attribute: self.attribute, 
+          attribute_human: self.attribute_human, 
           message: self.message,
           full_message: "#{self.attribute_human} #{self.message}"
         } 
@@ -122,10 +126,12 @@ module Exceptions
       {
         error: { 
           model: self.object["model"],
+          model_human: self.object["model_human"],
           attribute: self.object["attribute"],
+          attribute_human: self.object["attribute_human"],
           field: self.object["field"],
           message: self.object["message"],
-          full_message: "#{self.object["attribute"]} #{self.object["message"]}"
+          full_message: "#{self.object["full_message"]}"
         } 
       }
     end
@@ -195,12 +201,5 @@ module Exceptions
     def status
       401
     end
-
   end
-
 end
-
-# require 'exceptions/model'
-# require 'exceptions/resource'
-# require 'exceptions/simple'
-# require 'exceptions/unauthorized_application'
