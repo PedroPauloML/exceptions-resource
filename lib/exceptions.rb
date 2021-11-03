@@ -71,7 +71,7 @@ module Exceptions
     end
 
     def attribute
-      self.object.errors.first[0]
+      self.object.errors.first.attribute
     end
 
     def model_human
