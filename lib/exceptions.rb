@@ -93,7 +93,7 @@ module Exceptions
     end
 
     def is_nested?
-      attribute = self.object.errors.first[0]
+      attribute = self.object.errors.first.attribute
 
       if attribute.to_s.split(".").size > 1
         self.object.respond_to?(attribute) ? false : true
