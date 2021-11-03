@@ -79,13 +79,13 @@ module Exceptions
     end
 
     def attribute_human
-      self.object.class.human_attribute_name(self.object.errors.first[0])
+      self.object.class.human_attribute_name(self.object.errors.first.attribute)
     end
 
     # return the error message
     # @return [String]
     def message 
-      "#{self.object.errors.first[1]}"
+      "#{self.object.errors.first.message}"
     end
 
     def status
@@ -95,7 +95,7 @@ module Exceptions
     def is_nested?
       attribute = self.object.errors.first[0]
 
-      if self.object.errors.first[0].to_s.split(".").size > 1
+      if attribute.to_s.split(".").size > 1
         self.object.respond_to?(attribute) ? false : true
       else
         false
@@ -103,7 +103,7 @@ module Exceptions
     end
 
     def nested_model
-      self.object.errors.first[0].to_s.split(".").first.singularize.downcase
+      self.object.errors.first.attribute.to_s.split(".").first.singularize.downcase
     end
 
     def nested_model_human
@@ -111,7 +111,7 @@ module Exceptions
     end
 
     def nested_attr
-      self.object.errors.first[0].to_s.split(".").last
+      self.object.errors.first.attribute.to_s.split(".").last
     end
 
     def nested_attr_human
